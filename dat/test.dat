@@ -1,9 +1,9 @@
 ##############################################################################
-# This is a generic input file for use with the knap sack genetic algorithm. #
+# This is a generic input file for use with the knapsack genetic algorithm. #
 # Please copy this file for new input values. The format is as follows:      #
 #                                                                            #
-# <Knapsack Capacity>                                                        #
 # <Number of Items>															 #
+# <Knapsack Capacity>                                                        #
 # <Benefit> <Volume>                                                         #
 # ...                                                                        #               
 # ..                                                                         #
@@ -14,8 +14,8 @@
 # Volume  : the size of the item                                             #
 ##############################################################################
 
-100
 10
+100
 15 5
 10 10
 13 24

@@ -1,4 +1,8 @@
-
+/**
+ * An item in a knapsack problem which has a benefit and a volume 
+ * @author John Rutherford
+ * @version 4/6/13
+ */
 public class SackItem {
 	private double benefit;
 	private double volume;

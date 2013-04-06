@@ -3,7 +3,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Reads a file in and stores the list of items and the capacity of the sack
+ * @author John Rutherford
+ * @version 4/6/13
+ */
 public class ReadIn {
+	private int numItems = -1;
 	private double capacity;
 	private SackItem[] items;
 	
@@ -18,11 +24,15 @@ public class ReadIn {
 		System.out.println("Capacity: " + read.getCapacity());
 		System.out.println("Items: ");
 		SackItem[] items = read.getItems();
-		for (int i=0; i < items.length; i++) {
-			System.out.println(items[i].getBenefit() + " " + items[i].getVolume());
+		for (int i=0; i < read.numItems; i++) {
+			System.out.println(items[i].getBenefit() + "\t" + items[i].getVolume());
 		}
 	}
 	
+	/**
+	 * reads and parses a file into usable objects for the knapsack genetic algorithm
+	 * @param src location of input file
+	 */
 	public void read(String src) {
 		int lineNum = 0;
 		BufferedReader reader = null;
@@ -32,7 +42,6 @@ public class ReadIn {
 			e.printStackTrace();
 		}
 		
-		int numItems = 0;
 		boolean done = false;
 		while (!done) {
 			String line = null;
@@ -47,10 +56,10 @@ public class ReadIn {
 				double volume;
 				
 				if (lineNum > 1) {
-					String vals[] = line.split(" ");
+					String vals[] = line.split("\\s+");
 					benefit = Double.parseDouble(vals[0]);
 					volume = Double.parseDouble(vals[1]);
-					items[lineNum - 1] = new SackItem(benefit, volume);
+					items[lineNum - 2] = new SackItem(benefit, volume);
 					lineNum++;
 				} else if (lineNum == 0) {
 					numItems = Integer.parseInt(line);
@@ -62,12 +71,13 @@ public class ReadIn {
 				}
 			}
 			
-			if (lineNum - 1 == numItems) {
+			if (lineNum - 2 == numItems) {
 				done = true;
 			}
 		}
 	}
 	
+	//getters and setters
 	public double getCapacity() {
 		return capacity;
 	}
