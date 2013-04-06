@@ -3,11 +3,13 @@
 # Please copy this file for new input values. The format is as follows:      #
 #                                                                            #
 # <Knapsack Capacity>                                                        #
+# <Number of Items>															 #
 # <Benefit> <Volume>                                                         #
 # ...                                                                        #               
 # ..                                                                         #
 # .                                                                          #
 #                                                                            #
+# Knapsack Capicity : total capacity of knapsack                             #
 # Benefit : the value for item                                               #
 # Volume  : the size of the item                                             #
 ##############################################################################
