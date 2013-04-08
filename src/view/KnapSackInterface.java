@@ -17,11 +17,6 @@ public class KnapSackInterface extends UserInterface {
     //standard input
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     
-    public static void main(String args[]) {
-        KnapSackInterface ui = new KnapSackInterface();
-        ui.promptUser();
-    }
-    
     public void promptUser() {
         System.out.print("Input File: ");
         try {
@@ -35,14 +30,14 @@ public class KnapSackInterface extends UserInterface {
     }
 
     public void displayBestScore(double score) {
-        
+        System.out.println("Best Score: " + score);     
     }
 
     public void displayStatus(String status) {
-
+        System.out.println("Current Status:\n" + status);
     }
 
     public void displayBestSolution(Genome solution) {
-
+        System.out.println("Best Solution:\n" + solution);
     }
 }
