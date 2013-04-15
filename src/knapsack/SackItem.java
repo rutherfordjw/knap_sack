@@ -1,4 +1,4 @@
-package model;
+package knapsack;
 
 /**
  * An item in a knapsack problem which has a benefit and a volume 

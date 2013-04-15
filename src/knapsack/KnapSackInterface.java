@@ -1,7 +1,7 @@
-package view;
+package knapsack;
 
-import controller.ReadIn;
 import model.Genome;
+import view.UserInterface;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -22,6 +22,15 @@ public abstract class PopMember {
         dataSet = genes;
         fitness = score;
     }
+    
+    /* Name: getGenome
+     * Description: returns the Genome of the pop member
+     * Return: genome - the Genome of this pop member
+     */
+    public Genome getGenome() {
+    	return dataSet;
+    }
+    
     /*
      * Name: getFitness
      * Description: returns the fitness value associated

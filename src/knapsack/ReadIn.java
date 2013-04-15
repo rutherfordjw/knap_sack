@@ -1,6 +1,5 @@
-package controller;
+package knapsack;
 
-import model.SackItem;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -80,7 +79,7 @@ public class ReadIn {
 		}
 	}
 	
-	//getters and setters
+	//getters
 	public double getCapacity() {
 		return capacity;
 	}
