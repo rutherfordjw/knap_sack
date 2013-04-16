@@ -1,24 +1,33 @@
 package controller;
 
+import java.util.BitSet;
+
 import model.Crossover;
 import model.Genome;
 import model.Mutation;
 import model.PopMember;
 import model.Population;
+import knapsack.KnapSackCrossover;
 import knapsack.KnapSackInterface;
 import knapsack.KnapSackMutation;
+import knapsack.ReadIn;
+import knapsack.SackItem;
+import knapsack.SortedPopulation;
 import view.UserInterface;
 
 /**
  * Driver.java
  * @author John Rutherford
- * @version 4/15/13
+ * @version 4/16/13
  * 
  * Runs a genetic algorithm.
 */
 
 public class Driver {
 	
+	private SackItem[] items;
+	
+	private Read read;
 	private Population pop;
 	private Crossover cross;
 	private Mutation mute;
@@ -33,7 +42,7 @@ public class Driver {
 	 * mutation technique, user interface, crossover technique, population, and mutation rate
 	 */
 	public static void main(String[] args) {
-		Driver driver = new Driver(new KnapSackInterface(), null, null, new KnapSackMutation(), 0);
+		Driver driver = new Driver(new ReadIn(), new KnapSackInterface(), new SortedPopulation(), new KnapSackCrossover(), new KnapSackMutation(), 0);
 		driver.run();
 	}
 	
@@ -44,15 +53,14 @@ public class Driver {
 	 * @param mutation A function object that will slightly alter a PopMember
 	 * @param mutationRate the percent chance, as a double, of a mutation occurring
 	 */
-	public Driver(UserInterface userInterface, Population population, Crossover crossover, Mutation mutation, double mutationRate) {
+	public Driver(Read read, UserInterface userInterface, Population population, Crossover crossover, Mutation mutation, double mutationRate) {
 		// Initialize fields
+		this.read = read;
 		pop = population;
 		cross = crossover;
 		mute = mutation;
 		ui = userInterface;
 		mRate = mutationRate;
-		
-		// TODO: any other initialization work
 	}
 	
 	/**
@@ -63,20 +71,10 @@ public class Driver {
 	}
 	
 	/**
-	 * Generates a double value for how desirable the solution contained within a given Genotype
-	 * is. This value is for comparison purposes with other Genotype objects within the same population
-	 * @param genotype
-	 * @return a fitness value
-	 */
-	//public double evaluateFitness(Genome genotype) {
-	//	return 0.0; //TODO: Implement
-	//}
-	
-	/**
 	 * I don't remember why this method exists
 	 */
 	public void setup() {
-		//TODO: Implement
+		
 	}
 	
 	/**
@@ -85,6 +83,20 @@ public class Driver {
 	public void run() {
 		setup();
 		ui.promptUser();
+		read.read(ui.getName());
+		items = read.getItems();
+		
+		pop.setItems(items);
+		pop.setCapacity(read.getCapacity());
+		pop.populate();
+		
+		PopMember best = pop.getBest();
+		ui.displayBestScore(best.getFitness());
+		
+		displayBestSolution(best);
+		while(!stopCriteriaMet()) {
+			
+		}
 	}
 	
 	/**
@@ -116,42 +128,16 @@ public class Driver {
 		return true; //TODO: Implement
 	}
 	
-	/*
-	 * OUTPUT
-	 */
-	
-	/**
-	 * 
-	 * @param score
-	 */
-	public void display(double score) {
-		ui.displayBestScore(score);
-	}
-	
-	/**
-	 * 
-	 * @param status
-	 */
-	public void display(String status) {
-		ui.displayStatus(status);
-	}
-	
-	/**
-	 * 
-	 * @param soln
-	 */
-	public void display(Genome soln) {
+	public void displayBestSolution(PopMember best) {
+		BitSet bits = best.getGenome().getBits();
+		
+		String soln = "";
+		int next = bits.nextSetBit(0);
+		while (next != -1) {
+			soln = soln + items[next].toString();
+			next = bits.nextSetBit(next + 1);
+		}
 		ui.displayBestSolution(soln);
-	}
-	
-	/**
-	 * 
-	 * @param score
-	 * @param status
-	 * @param soln
-	 */
-	public void display(double score, String status, Genome soln) {
-		ui.displayAll(score, status, soln);
 	}
 	
 	/*

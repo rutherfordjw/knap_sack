@@ -5,12 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import controller.Read;
+
 /**
  * Reads a file in and stores the list of items and the capacity of the sack
  * @author John Rutherford
- * @version 4/6/13
+ * @version 4/16/13
  */
-public class ReadIn {
+public class ReadIn implements Read {
 	private int numItems = -1;
 	private double capacity;
 	private SackItem[] items;
@@ -23,9 +25,9 @@ public class ReadIn {
 		ReadIn read = new ReadIn();
 		read.read("dat/test.dat");
 		
+		SackItem[] items = read.getItems();
 		System.out.println("Capacity: " + read.getCapacity());
 		System.out.println("Items: ");
-		SackItem[] items = read.getItems();
 		for (int i=0; i < read.numItems; i++) {
 			System.out.println(items[i].getBenefit() + "\t" + items[i].getVolume());
 		}
@@ -80,11 +82,11 @@ public class ReadIn {
 	}
 	
 	//getters
-	public double getCapacity() {
-		return capacity;
-	}
-	
 	public SackItem[] getItems() {
 		return items;
+	}
+	
+	public double getCapacity() {
+		return capacity;
 	}
 }

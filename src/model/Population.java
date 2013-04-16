@@ -1,5 +1,7 @@
 package model;
 
+import knapsack.SackItem;
+
 /**
  * Population.java
  *
@@ -18,4 +20,8 @@ public interface Population {
     public PopMember[] getPopulation();
     public void populate();
     public PopMember[] returnParents(int numParents);
+    public double getCapacity();
+    public void setCapacity(double capacity);
+    public SackItem[] getItems();
+    public void setItems(SackItem[] items);
 }

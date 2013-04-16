@@ -1,7 +1,5 @@
 package view;
 
-import model.Genome;
-
 /**
  * @author John Rutherford
  * @version 3/27/13
@@ -9,6 +7,8 @@ import model.Genome;
  * Interface setting guidelines for interacting with user
  */
 public abstract class UserInterface {
+	private String name;
+	
     //prompts user for input needed to start running genetic algorithm
     public abstract void promptUser();
     //displays the best score found
@@ -16,7 +16,7 @@ public abstract class UserInterface {
     //displays the current status of the genetic algorithm
     public abstract void displayStatus(String status);
     //displays the best solution found
-    public abstract void displayBestSolution(Genome soln);
+    public abstract void displayBestSolution(String soln);
     
     /**
      * displays score, status, and soln, using methods written for displaying
@@ -25,9 +25,17 @@ public abstract class UserInterface {
      * @param status the current status of the algorithm
      * @param soln the best solution found at the current time
      */
-    public void displayAll(double score, String status, Genome soln) {
+    public void displayAll(double score, String status, String soln) {
         displayBestScore(score);
         displayStatus(status);
         displayBestSolution(soln);
+    }
+    
+    public String getName() {
+    	return name;
+    }
+    
+    public void setName(String name) {
+    	this.name = name;
     }
 }

@@ -1,7 +1,6 @@
 package model;
 
-import java.lang.Iterable;
-import java.util.Iterator;
+import java.util.BitSet;
 
 /**
  * @author John Rutherford
@@ -9,30 +8,26 @@ import java.util.Iterator;
  *
  * Genome stores and manipulates the chromosomes for the Genetic Algorithm
  */
-public class Genome implements Iterable {
-    private Chromosome[] chromosomes;
+public class Genome {
+    private BitSet bits;
 
     /**
      * creates a genome with all given chromosomes
      * @param genotype an array of Chromosomes
      */
-    public void Genome(Chromosome[] genotype) {
-        chromosomes = genotype;
+    public Genome(BitSet bits) {
+        this.bits = bits;
     }
     
     /**
      * returns the chromosomes stored in Genome
      * @return stored chromosomes
      */
-    public Chromosome[] getChromosomes() {
-        return chromosomes;
+    public BitSet getBits() {
+        return bits;
     }
     
-    /**
-     * returns an iterator for the current chromosoms
-     * @return an iterator
-     */
-    public Iterator<Chromosome> iterator() {
-        return new ChromosomeIterator(chromosomes);
+    public String toString() {
+    	return bits.toString();
     }
 }

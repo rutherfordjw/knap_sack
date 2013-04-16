@@ -1,7 +1,13 @@
-package model;
+package knapsack;
 
+import java.util.BitSet;
 import java.util.Random;
 import java.util.Iterator;
+
+import model.Genome;
+import model.PopMember;
+import model.Population;
+
 
 /*
  * SortedPopulation.java
@@ -10,9 +16,11 @@ import java.util.Iterator;
  *
  */
 
-public class SortedPopulation implements Population
+public class SortedPopulation implements Population 
 {
-    PopMember[] population;
+	private SackItem[] items;
+	private double capacity;
+    private PopMember[] population;
     
     /*
      * Name: SortedPopulation
@@ -23,15 +31,13 @@ public class SortedPopulation implements Population
     {
         // creates population of size 500, with 1 placeholder.
         population = new PopMember[501];
-
-        populate();
     }
 
     /*
      * Name: insertionSort
      * Description: Performs an insertion sort on the population.
      */
-    public void insertionSort()
+    public void sort()
     {
         // This may be wrong, kinda rushed
         for(int i = 0; i < population.length; i++)
@@ -62,9 +68,39 @@ public class SortedPopulation implements Population
         population[population.length-1] = member;
         
         // sorts the population
-        insertionSort();
+        sort();
     }
 
+    /*
+     * Name: Populate
+     * Description: Creates an initial population.
+     */
+    public void populate() {
+    	Random rand = new Random();
+    	for (int i=0; i < population.length; i++) {
+			BitSet bits = new BitSet(items.length);
+			bits.clear();
+			
+			int bit;
+			double weight = 0;
+			do {
+				bit = rand.nextInt(items.length);
+				if (!bits.get(bit)) {
+					bits.set(bit);
+					weight += items[bit].getVolume();
+				}
+    		} while (weight <= capacity);
+			bits.flip(bit);
+			weight -= items[bit].getVolume();
+			
+			Genome genome = new Genome(bits);
+			double score = evaluateFitness(genome);
+			population[i] = new PopMember(genome, score);
+    	}
+    	
+    	sort();
+    }
+    
     /*
      * Name: getPopulation
      * Description: Returns the population.
@@ -125,17 +161,6 @@ public class SortedPopulation implements Population
     }
 
     /*
-     * Name: Populate
-     * Description: Creates an initial population.
-     */
-    public void populate()
-    {
-        Random rand = new Random();
-
-        // insert method here
-    }
-
-    /*
      * Name: returnParents
      * Description: Returns a specified number of parents from the
      *              population in an array.
@@ -163,13 +188,46 @@ public class SortedPopulation implements Population
         return parents;
     }
 
+	/**
+	 * Generates a double value for how desirable the solution contained within a given Genotype
+	 * is. This value is for comparison purposes with other Genotype objects within the same population
+	 * @param genotype
+	 * @return a fitness value
+	 */
+	public double evaluateFitness(Genome genotype) {
+		BitSet bits = genotype.getBits();
+		
+		double fitness = 0;
+		for (int i=0; i < items.length; i++) {
+			if (bits.get(i))
+				fitness += items[i].getBenefit();
+		}
+		return fitness;
+	}
+	
+	public SackItem[] getItems() {
+		return items;
+	}
+	
+	public void setItems(SackItem[] items) {
+		this.items = items;
+	}
+	
+	public double getCapacity() {
+		return capacity;
+	}
+	
+	public void setCapacity(double capacity) {
+		this.capacity = capacity;
+	}
+	
     public Iterator<PopMember> iterator()
     {
        return new PopMemberIterator();
     }
-
+    
     //Iterator for PopMembers.
-    private class PopMemberIterator implements Iterator
+    private class PopMemberIterator implements Iterator<PopMember>
     {
         private int location = 0;
 

@@ -7,7 +7,7 @@ package model;
  * @version 2013/3/27
  */
 
-public abstract class PopMember {
+public class PopMember {
     //our Genome of data
     private Genome dataSet;
     //the "fitness" of this PopMember
@@ -49,12 +49,4 @@ public abstract class PopMember {
     public void setFitness(double score) {
         fitness = score;
     }
-    
-    /*
-     * Name: hillClimb
-     * Description: This can be implemented in concrete classes
-     *              if the user wishes to implement hill-climbing
-     *              in their genetic algorithm application.
-     */
-    public abstract void hillClimb();
 }
