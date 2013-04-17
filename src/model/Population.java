@@ -24,4 +24,5 @@ public interface Population {
     public void setCapacity(double capacity);
     public SackItem[] getItems();
     public void setItems(SackItem[] items);
+    public double evaluateFitness(Genome member);
 }

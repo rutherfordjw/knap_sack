@@ -206,14 +206,20 @@ public class SortedPopulation implements Population
 	 * @param genotype
 	 * @return a fitness value
 	 */
-	public double evaluateFitness(Genome genotype) {
+	public double evaluateFitness(Genome genotype) {		
 		BitSet bits = genotype.getBits();
 		
 		double fitness = 0;
+		double weight = 0;
 		for (int i=0; i < items.length; i++) {
-			if (bits.get(i))
+			if (bits.get(i)) {
 				fitness += items[i].getBenefit();
+				weight  += items[i].getVolume();
+			}
 		}
+		
+		if (weight > capacity)
+			return 0;
 		return fitness;
 	}
 	

@@ -7,9 +7,9 @@ import model.Genome;
 import model.Mutation;
 import model.PopMember;
 import model.Population;
-import knapsack.KnapSackCrossover;
 import knapsack.KnapSackInterface;
 import knapsack.KnapSackMutation;
+import knapsack.KnapSackSinglePointCrossover;
 import knapsack.ReadIn;
 import knapsack.SackItem;
 import knapsack.SortedPopulation;
@@ -42,7 +42,14 @@ public class Driver {
 	 * mutation technique, user interface, crossover technique, population, and mutation rate
 	 */
 	public static void main(String[] args) {
-		Driver driver = new Driver(new ReadIn(), new KnapSackInterface(), new SortedPopulation(), new KnapSackCrossover(), new KnapSackMutation(), 0);
+		Read read = new ReadIn();
+		UserInterface ui = new KnapSackInterface();
+		Population pop = new SortedPopulation();
+		Crossover cross = new KnapSackSinglePointCrossover();
+		Mutation mute = new KnapSackMutation();
+		double mRate = 0;
+		
+		Driver driver = new Driver(read, ui, pop, cross, mute, mRate);
 		driver.run();
 	}
 	
@@ -94,18 +101,33 @@ public class Driver {
 		ui.displayBestScore(best.getFitness());
 		displayBestSolution(best);
 		
-		while(!stopCriteriaMet()) {
+		boolean done = false;
+		while(!done) {
+			PopMember[] chosen = pop.returnParents(2);
+			Genome[] genes = new Genome[2];
+			genes[0] = chosen[0].getGenome();
+			genes[1] = chosen[1].getGenome();			
+			Genome[] children = cross.cross(genes);
 			
+			PopMember[] childMembers = new PopMember[2];
+			childMembers[0] = new PopMember(children[0], pop.evaluateFitness(children[0]));
+			childMembers[1] = new PopMember(children[1], pop.evaluateFitness(children[1]));
+		
+			pop.insert(childMembers[0]);
+			pop.insert(childMembers[1]);
+			
+			//System.out.println(chosen[0].getGenome());
+			//System.out.println(chosen[1].getGenome());
+			//System.out.println(childMembers[0].getGenome());
+			//System.out.println(childMembers[1].getGenome());
+			//ui.displayBestScore(childMembers[0].getFitness());
+			//displayBestSolution(childMembers[0]);
+			if (!best.equals(pop.getBest())) {
+				best = pop.getBest();
+				ui.displayBestScore(best.getFitness());
+				displayBestSolution(best);
+			}
 		}
-	}
-	
-	/**
-	 * Returns a random array of parents of size numParents
-	 * @param numParents the number of parents to include in the returned array
-	 * @return a random array of PopMembers from the population of size numParents
-	 */
-	public PopMember[] selectParents(int numParents) {
-		return null; //TODO: Implement
 	}
 	
 	/**
