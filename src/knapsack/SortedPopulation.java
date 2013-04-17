@@ -45,7 +45,7 @@ public class SortedPopulation implements Population
             int j = i;
             PopMember curr = population[i];
 
-            while((j > 0 && (population[j-1].getFitness() > curr.getFitness())))
+            while((j > 0 && (population[j-1].getFitness() < curr.getFitness())))
             {
                 population[j] = population[j-1];
                 j--;
@@ -162,28 +162,40 @@ public class SortedPopulation implements Population
 
     /*
      * Name: returnParents
-     * Description: Returns a specified number of parents from the
-     *              population in an array.
+     * Description: Returns specified parents using the group selection method
+     * 				First  1/4 - 50%
+     * 				Second 1/4 - 30%
+     * 				Third  1/4 - 15%
+     * 				Last   1/4 - 5%
      *
      * Parameters:
-     *      numParents - number of parents to return.
+     * 		numParents - number of parents to select
+     * 
      * Returns:
      *      PopMember array of parents.
      */
     public PopMember[] returnParents(int numParents)
     {
         PopMember[] parents = new PopMember[numParents];
-        
+     
         Random rand = new Random();
-
-        // Selects first parent from the first half of population
-        parents[0] = population[rand.nextInt(population.length/2)];
-
-        // Selects the rest of the parents from the entire population
-        for(int i = 1; i < numParents; i++)
-        {
-            parents[i] = population[rand.nextInt(population.length)];
-        }
+        
+        for (int i=0; i < numParents; i++) {
+	        int select = rand.nextInt(99);
+	        
+	        int parentSelection;
+	        if (select < 50) {
+	        	parentSelection = 0;
+	        } else if (select < 80) {
+	        	parentSelection = 25;
+	        } else if (select < 95) {
+	        	parentSelection = 50;
+	        } else {
+	        	parentSelection = 75;
+	        }
+	        
+	        parents[i] = population[rand.nextInt(24) + parentSelection];
+    	}
         
         return parents;
     }

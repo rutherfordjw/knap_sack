@@ -92,8 +92,8 @@ public class Driver {
 		
 		PopMember best = pop.getBest();
 		ui.displayBestScore(best.getFitness());
-		
 		displayBestSolution(best);
+		
 		while(!stopCriteriaMet()) {
 			
 		}
