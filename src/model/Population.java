@@ -17,6 +17,7 @@ public interface Population {
     public void insert(PopMember member);
     public void remove(PopMember member);
     public PopMember getBest();
+    public PopMember getWorst();
     public PopMember[] getPopulation();
     public void populate();
     public PopMember[] returnParents(int numParents);

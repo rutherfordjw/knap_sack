@@ -159,6 +159,11 @@ public class SortedPopulation implements Population
     {
         return population[0];
     }
+    
+    public PopMember getWorst()
+    {
+    	return population[population.length-2];
+    }
 
     /*
      * Name: returnParents

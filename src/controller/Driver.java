@@ -101,8 +101,7 @@ public class Driver {
 		ui.displayBestScore(best.getFitness());
 		displayBestSolution(best);
 		
-		boolean done = false;
-		while(!done) {
+		while(!stopCriteriaMet()) {
 			PopMember[] chosen = pop.returnParents(2);
 			Genome[] genes = new Genome[2];
 			genes[0] = chosen[0].getGenome();
@@ -116,12 +115,6 @@ public class Driver {
 			pop.insert(childMembers[0]);
 			pop.insert(childMembers[1]);
 			
-			//System.out.println(chosen[0].getGenome());
-			//System.out.println(chosen[1].getGenome());
-			//System.out.println(childMembers[0].getGenome());
-			//System.out.println(childMembers[1].getGenome());
-			//ui.displayBestScore(childMembers[0].getFitness());
-			//displayBestSolution(childMembers[0]);
 			if (!best.equals(pop.getBest())) {
 				best = pop.getBest();
 				ui.displayBestScore(best.getFitness());
@@ -147,7 +140,10 @@ public class Driver {
 	 * @return true if the algorithm should stop, false otherwise
 	 */
 	public boolean stopCriteriaMet() {
-		return true; //TODO: Implement
+		if (pop.getWorst().getFitness() - pop.getBest().getFitness() <= 1) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void displayBestSolution(PopMember best) {
