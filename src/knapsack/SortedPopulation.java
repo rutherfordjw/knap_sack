@@ -78,7 +78,6 @@ public class SortedPopulation implements Population
     public void populate() {
     	Random rand = new Random();
     	for (int i=0; i < population.length; i++) {
-    		System.out.println(items.length);
 			BitSet bits = new BitSet(items.length);
 			bits.clear();
 			
@@ -96,8 +95,13 @@ public class SortedPopulation implements Population
 			
 			Genome genome = new Genome(bits);
 			double score = evaluateFitness(genome);
-			population[i] = new PopMember(genome, score);
-    	}
+			if (i < population.length)
+                population[i] = new PopMember(genome, score);
+    	    else {
+                sort();
+                population[population.length] = new PopMember(genome, score);
+            }
+        }
     	
     	sort();
     }

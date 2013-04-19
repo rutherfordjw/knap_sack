@@ -112,7 +112,7 @@ public class Driver {
 			for (int i=0; i < children.length; i++) {
 				if (rand.nextDouble() > mRate) {
 					children[i] = mute.mutate(children[i]);
-				}
+                }
 			}
 			
 			PopMember[] childMembers = new PopMember[2];
@@ -147,7 +147,7 @@ public class Driver {
 	 * @return true if the algorithm should stop, false otherwise
 	 */
 	public boolean stopCriteriaMet() {
-		if (pop.getBest().getFitness() - pop.getWorst().getFitness() <= 100) {
+		if (pop.getBest().getFitness() - pop.getWorst().getFitness() <= 1) {
 			return true;
 		}
 		return false;
