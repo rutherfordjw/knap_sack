@@ -1,13 +1,17 @@
 package knapsack;
 
+import java.util.BitSet;
+import java.util.Random;
+
 import model.Genome;
 import model.Mutation;
 
 public class KnapSackMutation implements Mutation {
-
-	@Override
+	private Random rand = new Random();
+	
 	public Genome mutate(Genome victim) {
-		// TODO Auto-generated method stub
-		return null;
+		BitSet bits = victim.getBits();
+		bits.flip(rand.nextInt(bits.length()));
+		return new Genome(bits);
 	}
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.BitSet;
+import java.util.Random;
 
 import model.Crossover;
 import model.Genome;
@@ -18,7 +19,7 @@ import view.UserInterface;
 /**
  * Driver.java
  * @author John Rutherford
- * @version 4/16/13
+ * @version 4/19/13
  * 
  * Runs a genetic algorithm.
 */
@@ -47,9 +48,8 @@ public class Driver {
 		Population pop = new SortedPopulation();
 		Crossover cross = new KnapSackSinglePointCrossover();
 		Mutation mute = new KnapSackMutation();
-		double mRate = 0;
 		
-		Driver driver = new Driver(read, ui, pop, cross, mute, mRate);
+		Driver driver = new Driver(read, ui, pop, cross, mute);
 		driver.run();
 	}
 	
@@ -60,14 +60,13 @@ public class Driver {
 	 * @param mutation A function object that will slightly alter a PopMember
 	 * @param mutationRate the percent chance, as a double, of a mutation occurring
 	 */
-	public Driver(Read read, UserInterface userInterface, Population population, Crossover crossover, Mutation mutation, double mutationRate) {
+	public Driver(Read read, UserInterface userInterface, Population population, Crossover crossover, Mutation mutation) {
 		// Initialize fields
 		this.read = read;
 		pop = population;
 		cross = crossover;
 		mute = mutation;
 		ui = userInterface;
-		mRate = mutationRate;
 	}
 	
 	/**
@@ -90,6 +89,7 @@ public class Driver {
 	public void run() {
 		setup();
 		ui.promptUser();
+		mRate = ui.getMRate();
 		read.read(ui.getName());
 		items = read.getItems();
 		
@@ -107,6 +107,13 @@ public class Driver {
 			genes[0] = chosen[0].getGenome();
 			genes[1] = chosen[1].getGenome();			
 			Genome[] children = cross.cross(genes);
+			
+			Random rand = new Random();
+			for (int i=0; i < children.length; i++) {
+				if (rand.nextDouble() > mRate) {
+					children[i] = mute.mutate(children[i]);
+				}
+			}
 			
 			PopMember[] childMembers = new PopMember[2];
 			childMembers[0] = new PopMember(children[0], pop.evaluateFitness(children[0]));
@@ -140,14 +147,15 @@ public class Driver {
 	 * @return true if the algorithm should stop, false otherwise
 	 */
 	public boolean stopCriteriaMet() {
-		if (pop.getWorst().getFitness() - pop.getBest().getFitness() <= 1) {
+		if (pop.getBest().getFitness() - pop.getWorst().getFitness() <= 100) {
 			return true;
 		}
 		return false;
 	}
 	
 	public void displayBestSolution(PopMember best) {
-		BitSet bits = best.getGenome().getBits();
+		BitSet bits = new BitSet(items.length);
+		bits = best.getGenome().getBits();
 		
 		String soln = "";
 		int next = bits.nextSetBit(0);

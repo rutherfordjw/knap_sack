@@ -7,6 +7,7 @@ package view;
  * Interface setting guidelines for interacting with user
  */
 public abstract class UserInterface {
+	private double mRate;
 	private String name;
 	
     //prompts user for input needed to start running genetic algorithm
@@ -37,5 +38,13 @@ public abstract class UserInterface {
     
     public void setName(String name) {
     	this.name = name;
+    }
+    
+    public double getMRate() {
+    	return mRate;
+    }
+    
+    public void setMRate(double mRate) {
+    	this.mRate = mRate;
     }
 }

@@ -78,6 +78,7 @@ public class SortedPopulation implements Population
     public void populate() {
     	Random rand = new Random();
     	for (int i=0; i < population.length; i++) {
+    		System.out.println(items.length);
 			BitSet bits = new BitSet(items.length);
 			bits.clear();
 			

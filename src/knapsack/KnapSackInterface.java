@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * @author John Rutherford
- * @version 4/16/13
+ * @version 4/19/13
  *
  * UI for running the knapsack genetic algorithm
  */
@@ -17,9 +17,11 @@ public class KnapSackInterface extends UserInterface {
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     
     public void promptUser() {
-        System.out.print("Input File: ");
         try {
-			setName(br.readLine());
+            System.out.print("Input File: ");
+            setName(br.readLine());
+            System.out.print("Mutation Rate: ");
+            setMRate(Double.parseDouble(br.readLine()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

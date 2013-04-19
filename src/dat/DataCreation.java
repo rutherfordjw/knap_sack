@@ -71,12 +71,12 @@ public class DataCreation {
 		}
 		
 		Random rand = new Random();
-		double capacity = Math.abs((double)rand.nextInt()/100);
+		double capacity = Math.abs((double)rand.nextInt(100000000)/100);
 		
 		String write = numItems + "\n" + capacity + "\n";
 		
 		for (int i=0; i < numItems; i++) {
-			write = write + Math.abs((double)rand.nextInt()/100) + "\t" + (double)rand.nextInt((int)capacity)/100 + "\n";
+			write = write + Math.abs((double)rand.nextInt(10000)/100) + "\t" + (double)rand.nextInt((int)capacity)/200 + "\n";
 		}
 		
 		try {
