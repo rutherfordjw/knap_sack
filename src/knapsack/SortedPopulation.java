@@ -79,7 +79,6 @@ public class SortedPopulation implements Population
      * Description: Creates an initial population.
      */
     public void populate() {
-    	Random rand = new Random();
     	for (int i=0; i < population.length; i++) {
 			Collections.shuffle(seqInts);
             

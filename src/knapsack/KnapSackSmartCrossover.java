@@ -1,13 +1,12 @@
 package knapsack;
 
 import java.util.BitSet;
-import java.util.Random;
 
 import model.Crossover;
 import model.Genome;
 
 public class KnapSackSmartCrossover implements Crossover {
-	public Genome[] cross(Genome[] parents) {
+	public Genome[] cross(Genome[] parents, int size) {
 		BitSet[] par = new BitSet[2];
 		par[0] = parents[0].getBits();
 		par[1] = parents[1].getBits();
