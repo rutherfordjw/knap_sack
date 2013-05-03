@@ -7,18 +7,17 @@ import model.Crossover;
 import model.Genome;
 
 public class KnapSackSinglePointCrossover implements Crossover {
-	public Genome[] cross(Genome[] parents) {
+	public Genome[] cross(Genome[] parents, int size) {
 		BitSet[] par = new BitSet[2];
 		par[0] = parents[0].getBits();
 		par[1] = parents[1].getBits();
-		int length = par[0].length();
 		
 		Random rand = new Random();
-		int point = rand.nextInt(length - 2);
+		int point = rand.nextInt(size - 2);
 				
 		BitSet[] child = new BitSet[2];
-		child[0] = new BitSet(length);
-		child[1] = new BitSet(length);
+		child[0] = new BitSet(size);
+		child[1] = new BitSet(size);
 		
 		int childOne = 0;
 		int childTwo = 1;

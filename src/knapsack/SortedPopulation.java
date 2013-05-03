@@ -191,20 +191,20 @@ public class SortedPopulation implements Population
         Random rand = new Random();
         
         for (int i=0; i < numParents; i++) {
-	        int select = rand.nextInt(99);
+	        double select = rand.nextDouble();
 	        
 	        int parentSelection;
-	        if (select < 50) {
+	        if (select < 0.50) {
 	        	parentSelection = 0;
-	        } else if (select < 80) {
-	        	parentSelection = 25;
-	        } else if (select < 95) {
-	        	parentSelection = 50;
+	        } else if (select < 0.80) {
+	        	parentSelection = (int) (0.25 * population.length);
+	        } else if (select < 0.95) {
+	        	parentSelection = (int) 0.50 * population.length;
 	        } else {
-	        	parentSelection = 75;
+	        	parentSelection = (int) 0.75 * population.length;
 	        }
 	        
-	        parents[i] = population[rand.nextInt(24) + parentSelection];
+	        parents[i] = population[rand.nextInt(population.length/4) + parentSelection];
     	}
         
         return parents;
