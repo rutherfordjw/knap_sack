@@ -11,6 +11,7 @@ import model.Population;
 import knapsack.KnapSackInterface;
 import knapsack.KnapSackMutation;
 import knapsack.KnapSackSinglePointCrossover;
+import knapsack.KnapSackSmartCrossover;
 import knapsack.ReadIn;
 import knapsack.SackItem;
 import knapsack.SortedPopulation;
@@ -35,8 +36,6 @@ public class Driver {
 	private UserInterface ui;
 	private double mRate; // the mutation rate
 	
-	//TODO: Insert statistics variables of some sort?
-	
 	/**
 	 * MAIN
 	 * Change these settings to change basic genetic algorithm functions such as
@@ -46,7 +45,7 @@ public class Driver {
 		Read read = new ReadIn();
 		UserInterface ui = new KnapSackInterface();
 		Population pop = new SortedPopulation();
-		Crossover cross = new KnapSackSinglePointCrossover();
+		Crossover cross = new KnapSackSmartCrossover();
 		Mutation mute = new KnapSackMutation();
 		
 		Driver driver = new Driver(read, ui, pop, cross, mute);
@@ -95,11 +94,11 @@ public class Driver {
 		
 		pop.setItems(items);
 		pop.setCapacity(read.getCapacity());
-		pop.populate();
+        pop.populate();
 		
 		PopMember best = pop.getBest();
-		ui.displayBestScore(best.getFitness());
 		displayBestSolution(best);
+		ui.displayBestScore(best.getFitness());
 		
 		do {
 			PopMember[] chosen = pop.returnParents(2);
@@ -124,8 +123,8 @@ public class Driver {
 			
 			if (!best.equals(pop.getBest())) {
 				best = pop.getBest();
-				ui.displayBestScore(best.getFitness());
 				displayBestSolution(best);
+				ui.displayBestScore(best.getFitness());
 			}
 		} while(!stopCriteriaMet());
 	}

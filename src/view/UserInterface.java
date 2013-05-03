@@ -27,9 +27,9 @@ public abstract class UserInterface {
      * @param soln the best solution found at the current time
      */
     public void displayAll(double score, String status, String soln) {
-        displayBestScore(score);
-        displayStatus(status);
         displayBestSolution(soln);
+        displayStatus(status);
+        displayBestScore(score);
     }
     
     public String getName() {

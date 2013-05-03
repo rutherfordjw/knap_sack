@@ -1,6 +1,8 @@
 package knapsack;
 
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Iterator;
 
@@ -21,8 +23,9 @@ public class SortedPopulation implements Population
 	private SackItem[] items;
 	private double capacity;
     private PopMember[] population;
+    private ArrayList<Integer> seqInts;
     
-    /*
+   /*
      * Name: SortedPopulation
      * Description: Basic constructor
      *
@@ -78,12 +81,24 @@ public class SortedPopulation implements Population
     public void populate() {
     	Random rand = new Random();
     	for (int i=0; i < population.length; i++) {
-			BitSet bits = new BitSet(items.length);
+			Collections.shuffle(seqInts);
+            
+            BitSet bits = new BitSet(items.length);
 			bits.clear();
 			
 			int bit;
 			double weight = 0;
-			do {
+			for (int j=0; j < seqInts.size(); j++) {
+                bit = (seqInts.get(j));
+                weight += items[bit].getVolume();
+                if (weight > capacity) {
+                    weight -= items[bit].getVolume();
+                    break;
+                }
+                bits.set(bit);
+            }
+            /*do {
+                System.out.println("pong");
 				bit = rand.nextInt(items.length);
 				if (!bits.get(bit)) {
 					bits.set(bit);
@@ -91,8 +106,9 @@ public class SortedPopulation implements Population
 				}
     		} while (weight <= capacity);
 			bits.flip(bit);
-			weight -= items[bit].getVolume();
 			
+            weight -= items[bit].getVolume();
+			*/
 			Genome genome = new Genome(bits);
 			double score = evaluateFitness(genome);
 			if (i < population.length)
@@ -102,7 +118,6 @@ public class SortedPopulation implements Population
                 population[population.length] = new PopMember(genome, score);
             }
         }
-    	
     	sort();
     }
     
@@ -239,6 +254,10 @@ public class SortedPopulation implements Population
 	
 	public void setItems(SackItem[] items) {
 		this.items = items;
+        seqInts = new ArrayList<Integer>(items.length);
+        for (int i=0; i < items.length; i++) {
+            seqInts.add(i);
+        }
 	}
 	
 	public double getCapacity() {
