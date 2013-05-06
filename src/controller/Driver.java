@@ -109,9 +109,9 @@ public class Driver {
 			
 			Random rand = new Random();
 			for (int i=0; i < children.length; i++) {
-				if (rand.nextDouble() > mRate) {
+				if (rand.nextDouble() < mRate) {
 					children[i] = mute.mutate(children[i]);
-                }
+				}
 			}
 			
 			PopMember[] childMembers = new PopMember[2];

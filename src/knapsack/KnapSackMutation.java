@@ -12,7 +12,6 @@ public class KnapSackMutation implements Mutation {
 	public Genome mutate(Genome victim) {
 		BitSet bits = victim.getBits();
         int length = bits.length();
-        System.out.println(length);
         bits.flip(rand.nextInt(length));
         return new Genome(bits);
 	}
