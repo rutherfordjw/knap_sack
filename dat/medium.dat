@@ -11,8 +11,6 @@
 #
 # File format:
 # <- (This is a comment)
-# First non comment line = Max weight capacity
-# Every next non comment line is a object with value and weight separated by a space
 #
 100
 27
