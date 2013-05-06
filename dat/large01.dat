@@ -4,6 +4,7 @@
 #
 # this is a large dataset, with a set of 10000 weights and profits for a knapsack of capacity 431
 #
+# My Best: 6146.0
 # Optimal? selection:
 # ITEM           ITEMWEIGHT ITEMVALUE
 # -------------- ---------- ----------
@@ -33,7 +34,8 @@
 # 
 # File format:
 # <- (This is a comment)
-# First non comment line = Ma#  weight capacity
+# First non comment line = Ma
+#  weight capacity
 # Every net non comment line is a object with value and weight separated by a space
 #
 10000

@@ -2,6 +2,7 @@
 # http://homepage.ntlworld.com/walter.barker2/Knapsack%20Problem.htm
 # http://homepage.ntlworld.com/walter.barker2/Knapsack%20data/1%20dimension/small/knapdata.txt
 #
+# My Best: 1149
 # this is dataset small, a set of 40 weights and profits for a knapsack of capacity 15
 # (Optimal? selection = 28,29,19 with profit 1149)
 #

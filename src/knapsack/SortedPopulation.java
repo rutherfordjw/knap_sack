@@ -79,7 +79,7 @@ public class SortedPopulation implements Population
      * Description: Creates an initial population.
      */
     public void populate() {
-    	for (int i=0; i < population.length; i++) {
+    	for (int i=0; i < population.length + 200; i++) {
 			Collections.shuffle(seqInts);
             
             BitSet bits = new BitSet(items.length);
@@ -97,7 +97,6 @@ public class SortedPopulation implements Population
                 bits.set(bit);
             }
             /*do {
-                System.out.println("pong");
 				bit = rand.nextInt(items.length);
 				if (!bits.get(bit)) {
 					bits.set(bit);
@@ -114,7 +113,7 @@ public class SortedPopulation implements Population
                 population[i] = new PopMember(genome, score);
     	    else {
                 sort();
-                population[population.length] = new PopMember(genome, score);
+                population[population.length-1] = new PopMember(genome, score);
             }
         }
     	sort();

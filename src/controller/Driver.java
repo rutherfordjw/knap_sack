@@ -20,7 +20,7 @@ import view.UserInterface;
 /**
  * Driver.java
  * @author John Rutherford
- * @version 4/19/13
+ * @version 5/3/13
  * 
  * Runs a genetic algorithm.
 */

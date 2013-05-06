@@ -4,6 +4,7 @@
 #
 # this is a large daset, with a set of 10000 weights and profits for a knapsack of capacity 1765326
 #
+# My Best : 1385857.0
 # Optimal? selection value: 1385923
 # (see http://homepage.ntlworld.com/walter.barker2/Knapsack%20data/1%20dimension/Large2/KNAPOUT.TXT)
 #

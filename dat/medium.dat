@@ -2,7 +2,7 @@
 # http://homepage.ntlworld.com/walter.barker2/Knapsack%20Problem.htm
 # http://homepage.ntlworld.com/walter.barker2/Knapsack%20data/1%20dimension/Medium/KNAPDATA.TXT
 #
-# My Best Score: 1164
+# My Best Score: 1173
 #
 # this is a medium dataset, with a set of 100 weights and profits for a knapsack of capacity 27
 # (Optimal? selection = 58,93,97 with profit 1173)
