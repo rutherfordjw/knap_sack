@@ -27,6 +27,10 @@ public class Genome {
         return bits;
     }
     
+    /**
+     * returns a string representation of the Genome
+     * @return String representing the BitString contained
+     */
     public String toString() {
     	return bits.toString();
     }

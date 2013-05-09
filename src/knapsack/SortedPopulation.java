@@ -11,11 +11,12 @@ import model.PopMember;
 import model.Population;
 
 
-/*
+/**
  * SortedPopulation.java
  *
- * Implementation of the Popluation class.
- *
+ * @author John Rutherford
+ * @version 5/9/13
+ * Implementation of the Popluation class adapted for use with the 0-1 knapsack problem
  */
 
 public class SortedPopulation implements Population 
@@ -25,10 +26,9 @@ public class SortedPopulation implements Population
     private PopMember[] population;
     private ArrayList<Integer> seqInts;
     
-   /*
+   /**
      * Name: SortedPopulation
      * Description: Basic constructor
-     *
      */
     public SortedPopulation()
     {
@@ -36,7 +36,7 @@ public class SortedPopulation implements Population
         population = new PopMember[501];
     }
 
-    /*
+    /**
      * Name: insertionSort
      * Description: Performs an insertion sort on the population.
      */
@@ -58,12 +58,11 @@ public class SortedPopulation implements Population
         }
     }
     
-    /*
+    /**
      * Name: Insert
      * Description: Inserts a population member into the popluation.
      *
-     * Parameters:
-     *      member - member to be inserted into the population.
+     * @param member member to be inserted into the population.
      */
     public void insert(PopMember member)
     {
@@ -74,9 +73,10 @@ public class SortedPopulation implements Population
         sort();
     }
 
-    /*
+    /**
      * Name: Populate
-     * Description: Creates an initial population.
+     * Description: Creates an initial population by shuffling a list of Integers
+     * and inserting those members until the capacity is met.
      */
     public void populate() {
     	for (int i=0; i < population.length + 200; i++) {
@@ -96,17 +96,7 @@ public class SortedPopulation implements Population
                 }
                 bits.set(bit);
             }
-            /*do {
-				bit = rand.nextInt(items.length);
-				if (!bits.get(bit)) {
-					bits.set(bit);
-					weight += items[bit].getVolume();
-				}
-    		} while (weight <= capacity);
-			bits.flip(bit);
-			
-            weight -= items[bit].getVolume();
-			*/
+
 			Genome genome = new Genome(bits);
 			double score = evaluateFitness(genome);
 			if (i < population.length)
@@ -119,24 +109,22 @@ public class SortedPopulation implements Population
     	sort();
     }
     
-    /*
+    /**
      * Name: getPopulation
      * Description: Returns the population.
      *
-     * Returns:
-     *      popMember array representing the population.
+     * @return popMember array representing the population.
      */
     public PopMember[] getPopulation()
     {
         return population;
     }
     
-    /*
+    /**
      * Name: Remove
      * Description: Removes a member from the population.
      *
-     * Parameters:
-     *      member to be removed.
+     * @param member member to be removed.
      */
     public void remove(PopMember member)
     {
@@ -166,24 +154,29 @@ public class SortedPopulation implements Population
         }
     }
 
-    /*
+    /**
      * Name: getBest
      * Description: Returns the best member of the popluation.
      *
-     * Returns: 
-     *      Best PopMember in the population.
+     * @return Best PopMember in the population.
      */
     public PopMember getBest()
     {
         return population[0];
     }
     
+    /**
+     * Name: getWorst
+     * Description: returns the worst member of the population
+     * 
+     * @return Worst PopMember in the population
+     */
     public PopMember getWorst()
     {
     	return population[population.length-2];
     }
 
-    /*
+    /**
      * Name: returnParents
      * Description: Returns specified parents using the group selection method
      * 				First  1/4 - 50%
@@ -191,11 +184,9 @@ public class SortedPopulation implements Population
      * 				Third  1/4 - 15%
      * 				Last   1/4 - 5%
      *
-     * Parameters:
-     * 		numParents - number of parents to select
+     * @param numParents number of parents to select
      * 
-     * Returns:
-     *      PopMember array of parents.
+     * @return PopMember array of parents.
      */
     public PopMember[] returnParents(int numParents)
     {
@@ -246,10 +237,18 @@ public class SortedPopulation implements Population
 		return fitness;
 	}
 	
+	/**
+	 * returns the list of SackItems in the population
+	 * @return list of SackItems
+	 */
 	public SackItem[] getItems() {
 		return items;
 	}
 	
+	/**
+	 * sets a list of items to choose from
+	 * @param items list of all items in population
+	 */
 	public void setItems(SackItem[] items) {
 		this.items = items;
         seqInts = new ArrayList<Integer>(items.length);
@@ -258,6 +257,7 @@ public class SortedPopulation implements Population
         }
 	}
 	
+	// GETTERS AND SETTERS
 	public double getCapacity() {
 		return capacity;
 	}
@@ -266,6 +266,10 @@ public class SortedPopulation implements Population
 		this.capacity = capacity;
 	}
 	
+	/**
+	 * returns an iterator for the population
+	 * @return iterator for Population
+	 */
     public Iterator<PopMember> iterator()
     {
        return new PopMemberIterator();

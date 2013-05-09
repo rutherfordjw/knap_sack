@@ -18,22 +18,6 @@ public class ReadIn implements Read {
 	private SackItem[] items;
 	
 	/**
-	 * for testing purposes
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		ReadIn read = new ReadIn();
-		read.read("dat/test.dat");
-		
-		SackItem[] items = read.getItems();
-		System.out.println("Capacity: " + read.getCapacity());
-		System.out.println("Items: ");
-		for (int i=0; i < read.numItems; i++) {
-			System.out.println(items[i].getBenefit() + "\t" + items[i].getVolume());
-		}
-	}
-	
-	/**
 	 * reads and parses a file into usable objects for the knapsack genetic algorithm
 	 * @param src location of input file
 	 */
@@ -81,7 +65,7 @@ public class ReadIn implements Read {
 		}
 	}
 	
-	//getters
+	//GETTERS
 	public SackItem[] getItems() {
 		return items;
 	}

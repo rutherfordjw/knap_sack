@@ -22,7 +22,7 @@ import view.UserInterface;
  * @author John Rutherford
  * @version 5/3/13
  * 
- * Runs a genetic algorithm.
+ * The main driver for running the genetic algorithm for the 0-1 Knapsack problem
 */
 
 public class Driver {
@@ -54,10 +54,11 @@ public class Driver {
 	
 	/**
 	 * Creates a driver that will use the input as the elements for its genetic algorithm
+	 * @param read The class used for reading in necessary input
+	 * @param userInterface the view for the user
 	 * @param population The population of data that the program will run on
 	 * @param crossover The specific crossover implementation that will recombine two PopMembers
 	 * @param mutation A function object that will slightly alter a PopMember
-	 * @param mutationRate the percent chance, as a double, of a mutation occurring
 	 */
 	public Driver(Read read, UserInterface userInterface, Population population, Crossover crossover, Mutation mutation) {
 		// Initialize fields
@@ -69,24 +70,9 @@ public class Driver {
 	}
 	
 	/**
-	 * Creates an empty driver for progressive initialization using the getter/setter methods
-	 */
-	public Driver() {
-		// TODO: Something here
-	}
-	
-	/**
-	 * I don't remember why this method exists
-	 */
-	public void setup() {
-		
-	}
-	
-	/**
-	 * This method begins the execution of the genetic algorithm
+	 * This method is the main execution point for the genetic algorithm
 	 */
 	public void run() {
-		setup();
 		ui.promptUser();
 		mRate = ui.getMRate();
 		read.read(ui.getName());
@@ -152,6 +138,10 @@ public class Driver {
 		return false;
 	}
 	
+	/**
+	 * Uses the user interface provided to display the best known solution
+	 * @param best The PopMember with the best known solution
+	 */
 	public void displayBestSolution(PopMember best) {
 		BitSet bits = new BitSet(items.length);
 		bits = best.getGenome().getBits();

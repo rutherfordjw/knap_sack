@@ -9,11 +9,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
 
+/**
+ * Creates a random Data set with a chosen number of itmes using empty.dat
+ * @author John Rutherford
+ * @version 5/9/13
+ */
 public class DataCreation {
 	private int numItems;
 	private String dest;
 	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
+	/**
+	 * Main method for running program
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		DataCreation data = new DataCreation();
 		data.promptUser();	
@@ -21,6 +30,9 @@ public class DataCreation {
 		System.out.println("\nNew File Created at " + data.getDest());
 	}
 	
+	/**
+	 * Prompts the user for the file name and number of items
+	 */
 	public void promptUser() {
 		try {
 			System.out.print("File Destination: ");
@@ -32,6 +44,11 @@ public class DataCreation {
 		}
 	}
 	
+	/**
+	 * Creates the file by randomizing benefit and volume of each item
+	 * @param dest destination of created file
+	 * @param numItems items to create
+	 */
 	public void createFile(String dest, int numItems) {
 		File destFile = new File(dest);
 		if (dest.endsWith("empty.dat")) {
@@ -89,6 +106,7 @@ public class DataCreation {
 		}
 	}
 	
+	//GETTERS
 	public String getDest() {
 		return dest;
 	}

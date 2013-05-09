@@ -19,7 +19,7 @@ public class SackItem {
 		this.volume = volume;
 	}
 	
-	//getters and setters
+	//GETTERS AND SETTERS
 	public double getBenefit() {
 		return benefit;
 	}

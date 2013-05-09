@@ -32,6 +32,7 @@ public abstract class UserInterface {
         displayBestScore(score);
     }
     
+    //GETTERS AND SETTERS
     public String getName() {
     	return name;
     }

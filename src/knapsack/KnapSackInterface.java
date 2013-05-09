@@ -16,6 +16,9 @@ public class KnapSackInterface extends UserInterface {
     //standard input
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     
+    /**
+     * prompts the user for necessary information
+     */
     public void promptUser() {
         try {
             System.out.print("Input File: ");
@@ -27,14 +30,23 @@ public class KnapSackInterface extends UserInterface {
 		}
     }
 
+    /**
+     * displays the best known score in the population
+     */
     public void displayBestScore(double score) {
         System.out.println("Best Score: " + score);     
     }
 
+    /**
+     * displays the status of the algorithm
+     */
     public void displayStatus(String status) {
         System.out.println("Current Status:\n" + status);
     }
 
+    /**
+     * displays the best known solution of the algorithm
+     */
     public void displayBestSolution(String solution) {
         System.out.println("Best Solution:\n" + solution);
     }
